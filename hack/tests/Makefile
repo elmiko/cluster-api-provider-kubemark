@@ -196,3 +196,11 @@ test-e2e:	.start-kind-cluster \
 		.create-tenant-cluster-hollow-nodes \
 		.generate-tenant-cluster-kubeconfig \
 		.tenant-cluster-info
+
+test-e2e-no-build: .start-kind-cluster \
+	 	.install-cert-manager \
+		.deploy-cluster-api \
+		.create-tenant-cluster-control-plane \
+		.create-tenant-cluster-hollow-nodes \
+		.generate-tenant-cluster-kubeconfig \
+		.tenant-cluster-info
