@@ -47,7 +47,7 @@ type KubemarkMachinePrices struct {
 	// This must be a floating point value serialized as a string.
 	// +optional
 	// +kubebuilder:validation:MaxLength=8
-	// +kubebuilder:validation:XValidation:rule="self.matches([0-9]{1,3}(\\.[0-9]{1,4})?)"
+	// +kubebuilder:validation:XValidation:rule="self.matches('[0-9]{1,3}(\\.[0-9]{1,4})?')"
 	Current string `json:"current,omitempty"`
 }
 

@@ -213,7 +213,7 @@ spec:
                             maxLength: 8
                             type: string
                             x-kubernetes-validations:
-                            - rule: self.matches([0-9]{1,3}(\.[0-9]{1,4})?)
+                            - rule: self.matches('[0-9]{1,3}(\.[0-9]{1,4})?')
                         type: object
                       providerID:
                         description: ProviderID will be the kubemark pod name in ProviderID
@@ -254,7 +254,7 @@ spec:
                     maxLength: 8
                     type: string
                     x-kubernetes-validations:
-                    - rule: self.matches([0-9]{1,3}(\.[0-9]{1,4})?)
+                    - rule: self.matches('[0-9]{1,3}(\.[0-9]{1,4})?')
                 type: object
             type: object
         type: object
