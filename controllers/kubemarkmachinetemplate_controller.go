@@ -81,6 +81,11 @@ func (r *KubemarkMachineTemplateReconciler) Reconcile(ctx context.Context, req c
 		}
 	}
 
+	if !reflect.DeepEqual(machineTemplate.Spec.Template.Spec.Prices, machineTemplate.Status.Prices) {
+		machineTemplate.Status.Prices = machineTemplate.Spec.Template.Spec.Prices
+		updateRequired = true
+	}
+
 	if updateRequired {
 		if err := helper.Patch(ctx, &machineTemplate); err != nil {
 			if !apierrors.IsNotFound(err) {
