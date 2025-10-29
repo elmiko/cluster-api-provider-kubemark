@@ -41,6 +41,16 @@ const (
 	KubemarkExtendedResourceMemory KubemarkExtendedResourceName = "memory"
 )
 
+// KubemarkMachinePrices contains information about the price of a KubemarkMachineTemplate.
+type KubemarkMachinePrices struct {
+	// Current is the current price for this machine template.
+	// This must be a floating point value serialized as a string.
+	// +optional
+	// +kubebuilder:validation:MaxLength=8
+	// +kubebuilder:validation:XValidation:rule="self.matches([0-9]{1,3}(\\.[0-9]{1,4})?)"
+	Current string `json:"current,omitempty"`
+}
+
 // KubemarkMachineSpec defines the desired state of KubemarkMachine.
 type KubemarkMachineSpec struct {
 	// ProviderID will be the kubemark pod name in ProviderID format (kubemark:////<podname>)
@@ -59,6 +69,11 @@ type KubemarkMachineSpec struct {
 
 	// KubemarkHollowPodClusterSecretRef is a reference to a secret with a kubeconfig for an external cluster used for kubemark pods.
 	KubemarkHollowPodClusterSecretRef *corev1.ObjectReference `json:"kubemarkHollowPodClusterSecretRef,omitempty"`
+
+	// Prices contains data related to the price for this machine template.
+	// The values are used by applications that will make cluster topology decisions based on infratructure pricing.
+	// +optional
+	Prices KubemarkMachinePrices `json:"prices,omitempty"`
 }
 
 // Mount specifies a host volume to mount into a container.

@@ -201,6 +201,20 @@ spec:
                               type: object
                             type: array
                         type: object
+                      prices:
+                        description: |-
+                          Prices contains data related to the price for this machine template.
+                          The values are used by applications that will make cluster topology decisions based on infratructure pricing.
+                        properties:
+                          current:
+                            description: |-
+                              Current is the current price for this machine template.
+                              This must be a floating point value serialized as a string.
+                            maxLength: 8
+                            type: string
+                            x-kubernetes-validations:
+                            - rule: self.matches([0-9]{1,3}(\.[0-9]{1,4})?)
+                        type: object
                       providerID:
                         description: ProviderID will be the kubemark pod name in ProviderID
                           format (kubemark:////<podname>)
@@ -227,6 +241,20 @@ spec:
                   Capacity defines the resource capacity for this machine.
                   This value is used for autoscaling from zero operations as defined in:
                   https://github.com/kubernetes-sigs/cluster-api/blob/main/docs/proposals/20210310-opt-in-autoscaling-from-zero.md
+                type: object
+              prices:
+                description: |-
+                  Prices contains data related to the price for this machine template.
+                  The values are used by applications that will make cluster topology decisions based on infratructure pricing.
+                properties:
+                  current:
+                    description: |-
+                      Current is the current price for this machine template.
+                      This must be a floating point value serialized as a string.
+                    maxLength: 8
+                    type: string
+                    x-kubernetes-validations:
+                    - rule: self.matches([0-9]{1,3}(\.[0-9]{1,4})?)
                 type: object
             type: object
         type: object

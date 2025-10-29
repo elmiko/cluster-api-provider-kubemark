@@ -42,6 +42,10 @@ type KubemarkMachineTemplateStatus struct {
 	// https://github.com/kubernetes-sigs/cluster-api/blob/main/docs/proposals/20210310-opt-in-autoscaling-from-zero.md
 	// +optional
 	Capacity corev1.ResourceList `json:"capacity,omitempty"`
+	// Prices contains data related to the price for this machine template.
+	// The values are used by applications that will make cluster topology decisions based on infratructure pricing.
+	// +optional
+	Prices KubemarkMachinePrices `json:"prices,omitempty"`
 }
 
 // +kubebuilder:subresource:status
