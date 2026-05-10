@@ -1,0 +1,52 @@
+apiVersion: cluster.x-k8s.io/v1beta2
+kind: MachineDeployment
+metadata:
+  annotations:
+    cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: "5"
+    cluster.x-k8s.io/cluster-api-autoscaler-node-group-min-size: "1"
+  name: kubemark-uninitialized
+  namespace: default
+spec:
+  clusterName: km-cp
+  replicas: 1
+  selector:
+    matchLabels:
+      cluster.x-k8s.io/cluster-name: km-cp
+      cluster.x-k8s.io/deployment-name: kubemark-uninitialized
+  template:
+    metadata:
+      labels:
+        cluster.x-k8s.io/cluster-name: km-cp
+        cluster.x-k8s.io/deployment-name: kubemark-uninitialized
+    spec:
+      bootstrap:
+        configRef:
+          apiGroup: bootstrap.cluster.x-k8s.io
+          kind: KubeadmConfigTemplate
+          name: km-wl-kubemark-md-0
+      clusterName: km-cp
+      infrastructureRef:
+        apiGroup: infrastructure.cluster.x-k8s.io
+        kind: KubemarkMachineTemplate
+        name: kubemark-uninitialized
+      version: 1.33.4
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha4
+kind: KubemarkMachineTemplate
+metadata:
+  labels:
+    cluster.x-k8s.io/cluster-name: km-cp
+  name: kubemark-uninitialized
+  namespace: default
+spec:
+  template:
+    spec:
+      kubemarkOptions:
+        registerWithTaints:
+          - key: node.cloudprovider.kubernetes.io/uninitialized
+            effect: NoSchedule
+      extraMounts:
+        - name: containerd-sock
+          containerPath: /run/containerd/containerd.sock
+          hostPath: /run/containerd/containerd.sock
+          type: Socket
