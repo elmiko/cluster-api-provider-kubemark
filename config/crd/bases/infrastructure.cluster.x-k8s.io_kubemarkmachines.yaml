@@ -82,6 +82,31 @@ spec:
                   - name
                   type: object
                 type: array
+              instanceInitialization:
+                description: InstanceInitialization contains the configuration for
+                  initializing an instance.
+                properties:
+                  cloudinit:
+                    description: cloudinit contains the settings for the cloud-init
+                      initialization flow.
+                    type: object
+                  format:
+                    description: |-
+                      format is the underlying initialization flow that is utilized for an instance.
+                      This value controls how an instance will be initialized after it boots but before
+                      it joins a kubernetes cluster. Allowed values are "cloudinit" and "ignition".
+                    enum:
+                    - ""
+                    - cloudinit
+                    - ignition
+                    type: string
+                  ignition:
+                    description: ignition contains the settings for the ignition initialization
+                      flow.
+                    type: object
+                required:
+                - format
+                type: object
               kubemarkHollowPodClusterSecretRef:
                 description: KubemarkHollowPodClusterSecretRef is a reference to a
                   secret with a kubeconfig for an external cluster used for kubemark

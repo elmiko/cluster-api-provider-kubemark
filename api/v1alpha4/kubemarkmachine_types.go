@@ -20,6 +20,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"sigs.k8s.io/cluster-api-provider-kubemark/api/instance"
 	clusterv1beta1 "sigs.k8s.io/cluster-api/api/core/v1beta1" //nolint:staticcheck
 )
 
@@ -59,6 +60,9 @@ type KubemarkMachineSpec struct {
 
 	// KubemarkHollowPodClusterSecretRef is a reference to a secret with a kubeconfig for an external cluster used for kubemark pods.
 	KubemarkHollowPodClusterSecretRef *corev1.ObjectReference `json:"kubemarkHollowPodClusterSecretRef,omitempty"`
+
+	// InstanceInitialization contains the configuration for initializing an instance.
+	InstanceInitialization *instance.InstanceInitializationSpec `json:"instanceInitialization,omitempty"`
 }
 
 // Mount specifies a host volume to mount into a container.

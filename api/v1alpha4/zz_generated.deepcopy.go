@@ -23,6 +23,7 @@ package v1alpha4
 import (
 	"k8s.io/api/core/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
+	"sigs.k8s.io/cluster-api-provider-kubemark/api/instance"
 	"sigs.k8s.io/cluster-api/api/core/v1beta1"
 )
 
@@ -146,6 +147,11 @@ func (in *KubemarkMachineSpec) DeepCopyInto(out *KubemarkMachineSpec) {
 		in, out := &in.KubemarkHollowPodClusterSecretRef, &out.KubemarkHollowPodClusterSecretRef
 		*out = new(v1.ObjectReference)
 		**out = **in
+	}
+	if in.InstanceInitialization != nil {
+		in, out := &in.InstanceInitialization, &out.InstanceInitialization
+		*out = new(instance.InstanceInitializationSpec)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
