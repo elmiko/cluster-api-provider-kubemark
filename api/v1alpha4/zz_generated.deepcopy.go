@@ -21,9 +21,9 @@ limitations under the License.
 package v1alpha4
 
 import (
+	"github.com/elmiko/cluster-api-ignition-toolkit/api/instance"
 	"k8s.io/api/core/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
-	"sigs.k8s.io/cluster-api-provider-kubemark/api/instance"
 	"sigs.k8s.io/cluster-api/api/core/v1beta1"
 )
 
